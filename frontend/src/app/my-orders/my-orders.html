@@ -1,0 +1,89 @@
+<app-navbar></app-navbar>
+
+<div class="orders-page">
+
+  <div class="orders-header">
+    <p>SMARTCANTEEN</p>
+    <h1>My Orders 📦</h1>
+    <span>Track your food orders and pickup status.</span>
+  </div>
+
+  <div class="orders-container">
+
+    @if (orders.length > 0) {
+
+      @for (order of orders; track order._id) {
+
+        <div class="order-card">
+
+          <div class="order-top">
+
+            <div>
+              <h2>Order #{{ order._id.slice(-6) }}</h2>
+              <p>{{ order.createdAt | date:'medium' }}</p>
+            </div>
+
+            <span class="status">
+              {{ order.status }}
+            </span>
+
+          </div>
+
+          <hr>
+
+          <div class="order-items">
+
+            @for (item of order.items; track item._id) {
+
+              <div class="order-item">
+
+                <span>
+                  {{ item.menuItem?.name || 'Food Item' }}
+                  × {{ item.quantity }}
+                </span>
+
+                <strong>
+                  ₹{{ item.price * item.quantity }}
+                </strong>
+
+              </div>
+
+            }
+
+          </div>
+
+          <div class="order-bottom">
+
+            <div>
+              <span>Pickup Time</span>
+              <strong>{{ order.pickupTime }}</strong>
+            </div>
+
+            <div>
+              <span>Total Amount</span>
+              <strong>₹{{ order.totalAmount }}</strong>
+            </div>
+
+          </div>
+
+        </div>
+
+      }
+
+    } @else {
+
+      <div class="empty-orders">
+
+        <h2>No Orders Yet 🍽️</h2>
+
+        <p>
+          You haven't placed any orders yet.
+        </p>
+
+      </div>
+
+    }
+
+  </div>
+
+</div>

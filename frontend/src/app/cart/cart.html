@@ -1,0 +1,87 @@
+<app-navbar></app-navbar>
+
+<div class="cart-page">
+
+  <div class="cart-header">
+    <h1>Your Cart 🛒</h1>
+    <p>Review your items before placing the order.</p>
+  </div>
+
+  @if (cartItems.length > 0) {
+
+    <div class="cart-box">
+
+      @for (item of cartItems; track item._id) {
+
+        <div class="cart-item">
+
+          <div>
+            <h2>{{ item.name }}</h2>
+            <p>₹{{ item.price }} × {{ item.quantity }}</p>
+          </div>
+
+          <div class="quantity">
+
+            <button (click)="decreaseQuantity(item._id)">
+              -
+            </button>
+
+            <span>{{ item.quantity }}</span>
+
+            <button (click)="increaseQuantity(item._id)">
+              +
+            </button>
+
+          </div>
+
+          <strong>
+            ₹{{ item.price * item.quantity }}
+          </strong>
+
+        </div>
+
+        <hr>
+
+      }
+
+      <div class="pickup-section">
+
+        <label for="pickupTime">
+          Select Pickup Time
+        </label>
+
+        <input
+          id="pickupTime"
+          type="time"
+          [(ngModel)]="pickupTime"
+        />
+
+      </div>
+
+      <div class="cart-total">
+        <span>Total</span>
+        <strong>₹{{ getTotal() }}</strong>
+      </div>
+
+      <button
+        class="checkout-button"
+        (click)="placeOrder()">
+        Place Order
+      </button>
+
+    </div>
+
+  } @else {
+
+    <div class="cart-box">
+
+      <div class="empty-cart">
+        <h2>Your cart is empty 🛒</h2>
+        <p>Add some delicious food from the menu.</p>
+      </div>
+
+    </div>
+
+  }
+
+</div>

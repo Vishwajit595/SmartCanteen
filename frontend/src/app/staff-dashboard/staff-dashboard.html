@@ -1,0 +1,138 @@
+<app-navbar></app-navbar>
+
+<div class="dashboard-page">
+
+  <div class="dashboard-header">
+    <p>SMARTCANTEEN STAFF</p>
+    <h1>Order Dashboard</h1>
+    <span>Manage student orders and update their status.</span>
+  </div>
+
+  <div class="orders-container">
+
+    @if (orders.length > 0) {
+
+      @for (order of orders; track order._id) {
+
+        <div class="order-card">
+
+          <div class="order-top">
+
+            <div>
+              <h2>Order #{{ order._id.slice(-6) }}</h2>
+
+              <p>
+                Student:
+                {{ order.user?.name || 'Student' }}
+              </p>
+            </div>
+
+            <span class="status">
+              {{ order.status }}
+            </span>
+
+          </div>
+
+          <hr>
+
+          <div class="order-items">
+
+            @for (item of order.items; track item._id) {
+
+              <div class="order-item">
+
+                <span>
+                  {{ item.menuItem?.name || 'Food Item' }}
+                  × {{ item.quantity }}
+                </span>
+
+                <strong>
+                  ₹{{ item.price * item.quantity }}
+                </strong>
+
+              </div>
+
+            }
+
+          </div>
+
+          <div class="order-info">
+
+            <div>
+              <span>Pickup Time</span>
+              <strong>{{ order.pickupTime }}</strong>
+            </div>
+
+            <div>
+              <span>Total</span>
+              <strong>₹{{ order.totalAmount }}</strong>
+            </div>
+
+          </div>
+
+          <div class="order-actions">
+
+            @if (order.status === 'Pending') {
+
+              <button
+                class="accept"
+                (click)="updateStatus(order._id, 'Accepted')">
+                Accept
+              </button>
+
+              <button
+                class="reject"
+                (click)="updateStatus(order._id, 'Cancelled')">
+                Reject
+              </button>
+
+            }
+
+            @if (order.status === 'Accepted') {
+
+              <button
+                class="prepare"
+                (click)="updateStatus(order._id, 'Preparing')">
+                Start Preparing
+              </button>
+
+            }
+
+            @if (order.status === 'Preparing') {
+
+              <button
+                class="ready"
+                (click)="updateStatus(order._id, 'Ready')">
+                Mark Ready
+              </button>
+
+            }
+
+            @if (order.status === 'Ready') {
+
+              <button
+                class="collected"
+                (click)="updateStatus(order._id, 'Collected')">
+                Mark Collected
+              </button>
+
+            }
+
+          </div>
+
+        </div>
+
+      }
+
+    } @else {
+
+      <div class="empty-orders">
+        <h2>No Orders Yet 🍽️</h2>
+        <p>New student orders will appear here.</p>
+      </div>
+
+    }
+
+  </div>
+
+</div>
