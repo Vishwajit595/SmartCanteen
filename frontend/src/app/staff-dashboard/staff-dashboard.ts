@@ -24,7 +24,7 @@ export class StaffDashboard implements OnInit {
   loadOrders() {
 
     this.http.get<any[]>(
-      'http://localhost:5000/api/orders'
+      'https://smartcanteen-c012.onrender.com/api/orders'
     ).subscribe({
 
       next: (data) => {
@@ -46,7 +46,7 @@ export class StaffDashboard implements OnInit {
   updateStatus(id: string, status: string) {
 
     this.http.put(
-      `http://localhost:5000/api/orders/${id}/status`,
+      `https://smartcanteen-c012.onrender.com/api/orders/${id}/status`,
       { status }
     ).subscribe({
 

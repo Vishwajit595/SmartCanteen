@@ -29,7 +29,7 @@ export class MyOrders implements OnInit {
     );
 
     this.http.get<any[]>(
-      'http://localhost:5000/api/orders'
+      'https://smartcanteen-c012.onrender.com/api/orders'
     ).subscribe({
 
       next: (data) => {

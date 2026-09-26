@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class Auth {
 
-  private apiUrl = 'http://localhost:5000/api/auth';
+  private apiUrl = 'https://smartcanteen-c012.onrender.com/api/auth';
 
   constructor(private http: HttpClient) {}
 

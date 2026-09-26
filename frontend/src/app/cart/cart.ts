@@ -70,7 +70,7 @@ export class Cart implements OnInit {
     console.log('ORDER DATA:', orderData);
 
     this.http.post(
-      'http://localhost:5000/api/orders',
+      'https://smartcanteen-c012.onrender.com/api/orders',
       orderData
     ).subscribe({
 

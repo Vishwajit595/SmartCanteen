@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class MenuService {
 
-  private apiUrl = 'http://localhost:5000/api/menu';
+  private apiUrl = 'https://smartcanteen-c012.onrender.com/api/menu';
 
   constructor(private http: HttpClient) {}
 

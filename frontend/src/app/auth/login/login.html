@@ -12,16 +12,13 @@
       Login to your SmartCanteen account
     </p>
 
-    <form (ngSubmit)="login()">
+    <form>
 
       <div class="form-group">
         <label>Email</label>
         <input
           type="email"
-          name="email"
-          [(ngModel)]="email"
           placeholder="Enter your email"
-          required
         />
       </div>
 
@@ -29,10 +26,7 @@
         <label>Password</label>
         <input
           type="password"
-          name="password"
-          [(ngModel)]="password"
           placeholder="Enter your password"
-          required
         />
       </div>
 
@@ -44,7 +38,7 @@
 
     <p class="register-text">
       Don't have an account?
-      <a href="/register">Register</a>
+      <a href="#">Register</a>
     </p>
 
   </div>
