@@ -6,15 +6,29 @@ import { HttpClient } from '@angular/common/http';
 })
 export class Auth {
 
-  private apiUrl = 'https://smartcanteen-c012.onrender.com/api/auth';
+  private apiUrl =
+    'http://localhost:5000/api/auth';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient
+  ) {}
 
   register(userData: any) {
-    return this.http.post(`${this.apiUrl}/register`, userData);
+
+    return this.http.post(
+      `${this.apiUrl}/register`,
+      userData
+    );
+
   }
 
   login(userData: any) {
-    return this.http.post(`${this.apiUrl}/login`, userData);
+
+    return this.http.post(
+      `${this.apiUrl}/login`,
+      userData
+    );
+
   }
+
 }

@@ -1,22 +1,30 @@
-<app-navbar></app-navbar>
-
 <div class="menu-page">
 
   <div class="menu-header">
+
     <p>SMARTCANTEEN MENU</p>
+
     <h1>Choose Your Favourite Food</h1>
-    <span>Fresh food, simple ordering.</span>
+
+    <span>
+      Fresh food, simple ordering.
+    </span>
+
   </div>
+
 
   <div class="menu-grid">
 
     @for (item of menuItems; track item._id) {
 
-      <div class="food-card">
+      <div
+        class="food-card"
+        [class.unavailable-card]="!item.available">
 
         <div class="food-image">
           🍴
         </div>
+
 
         <div class="food-content">
 
@@ -24,17 +32,54 @@
             {{ item.category }}
           </span>
 
-          <h2>{{ item.name }}</h2>
 
-          <p>{{ item.description }}</p>
+          <h2>
+            {{ item.name }}
+          </h2>
+
+
+          <p>
+            {{ item.description }}
+          </p>
+
+
+          @if (!item.available) {
+
+            <div class="unavailable-message">
+              🔴 Currently Unavailable
+            </div>
+
+          }
+
 
           <div class="food-bottom">
 
-            <strong>₹{{ item.price }}</strong>
+            <strong>
+              ₹{{ item.price }}
+            </strong>
 
-            <button (click)="addToCart(item)">
-              + Add
-            </button>
+
+            @if (item.available) {
+
+              <button
+                (click)="addToCart(item)">
+
+                + Add
+
+              </button>
+
+            }
+            @else {
+
+              <button
+                class="unavailable-button"
+                disabled>
+
+                Unavailable
+
+              </button>
+
+            }
 
           </div>
 
@@ -46,10 +91,15 @@
 
   </div>
 
+
   @if (menuItems.length === 0) {
 
     <div class="empty-menu">
-      <p>No menu items available.</p>
+
+      <p>
+        No menu items available.
+      </p>
+
     </div>
 
   }

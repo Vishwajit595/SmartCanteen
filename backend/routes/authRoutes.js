@@ -2,8 +2,10 @@ const express = require("express");
 
 const {
     registerUser,
+    verifyEmail,
     loginUser,
-    createStaffUser
+    createStaffUser,
+    getAllStaff
 } = require("../controllers/authController");
 
 const {
@@ -14,21 +16,59 @@ const {
 const router = express.Router();
 
 
-// Student registration
-router.post("/register", registerUser);
+// ===============================
+// STUDENT REGISTRATION
+// ===============================
+
+router.post(
+    "/register",
+    registerUser
+);
 
 
-// Login
-router.post("/login", loginUser);
+// ===============================
+// EMAIL VERIFICATION
+// ===============================
+
+router.get(
+    "/verify-email",
+    verifyEmail
+);
 
 
-// Create staff account
-// Only logged-in admin can use this route
+// ===============================
+// LOGIN
+// ===============================
+
+router.post(
+    "/login",
+    loginUser
+);
+
+
+// ===============================
+// CREATE STAFF ACCOUNT
+// ADMIN ONLY
+// ===============================
+
 router.post(
     "/create-staff",
     protect,
     adminOnly,
     createStaffUser
+);
+
+
+// ===============================
+// GET ALL STAFF
+// ADMIN ONLY
+// ===============================
+
+router.get(
+    "/staff",
+    protect,
+    adminOnly,
+    getAllStaff
 );
 
 

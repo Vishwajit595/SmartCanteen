@@ -1,0 +1,35 @@
+<div class="verify-page">
+
+  <div class="verify-card">
+
+    <div class="verify-icon">
+      @if (success) {
+        ✅
+      } @else {
+        📧
+      }
+    </div>
+
+    <h1>
+      Email Verification
+    </h1>
+
+    <p>
+      {{ message }}
+    </p>
+
+    @if (success) {
+
+      <button
+        (click)="goToLogin()"
+        class="login-button">
+
+        Go to Login
+
+      </button>
+
+    }
+
+  </div>
+
+</div>

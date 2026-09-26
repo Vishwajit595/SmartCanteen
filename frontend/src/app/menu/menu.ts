@@ -24,6 +24,7 @@ export class Menu implements OnInit {
     console.log('MENU COMPONENT LOADED');
 
     this.menuService.getMenuItems().subscribe({
+
       next: (items) => {
 
         console.log('API DATA RECEIVED:', items);
@@ -34,16 +35,29 @@ export class Menu implements OnInit {
       },
 
       error: (error) => {
-        console.error('API ERROR:', error);
-      }
-    });
 
+        console.error('API ERROR:', error);
+
+      }
+
+    });
   }
 
   addToCart(item: any) {
 
+    if (!item.available) {
+
+      alert(
+        item.name + ' is currently unavailable.'
+      );
+
+      return;
+    }
+
     this.cartService.addToCart(item);
 
-    alert(item.name + ' added to cart!');
+    alert(
+      item.name + ' added to cart!'
+    );
   }
 }

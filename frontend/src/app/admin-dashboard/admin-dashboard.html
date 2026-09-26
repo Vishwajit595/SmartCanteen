@@ -1,16 +1,23 @@
 <div class="admin-page">
 
+  <!-- =============================== -->
+  <!-- CREATE STAFF -->
+  <!-- =============================== -->
+
   <div class="admin-card">
 
     <h1>👨‍💼 Admin Dashboard</h1>
 
     <p class="subtitle">
-      Create staff accounts for SmartCanteen
+      Manage SmartCanteen staff and menu
     </p>
+
+    <h2>👤 Create Staff Account</h2>
 
     <form (ngSubmit)="createStaff()">
 
       <div class="form-group">
+
         <label>Staff Name</label>
 
         <input
@@ -20,9 +27,11 @@
           placeholder="Enter staff name"
           required
         />
+
       </div>
 
       <div class="form-group">
+
         <label>Staff Email</label>
 
         <input
@@ -32,9 +41,11 @@
           placeholder="Enter staff email"
           required
         />
+
       </div>
 
       <div class="form-group">
+
         <label>Staff Password</label>
 
         <input
@@ -44,15 +55,431 @@
           placeholder="Enter staff password"
           required
         />
+
       </div>
 
       <button
         type="submit"
         class="create-button">
+
         Create Staff Account
+
       </button>
 
     </form>
+
+  </div>
+
+
+  <!-- =============================== -->
+  <!-- STAFF LIST -->
+  <!-- =============================== -->
+
+  <div class="staff-list-card">
+
+    <div class="staff-header">
+
+      <h2>👥 Staff Accounts</h2>
+
+      <button
+        type="button"
+        class="refresh-button"
+        (click)="loadStaff()">
+
+        🔄 Refresh
+
+      </button>
+
+    </div>
+
+
+    @if (staffList.length > 0) {
+
+      <div class="staff-table-container">
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>Name</th>
+
+              <th>Email</th>
+
+              <th>Role</th>
+
+            </tr>
+
+          </thead>
+
+          <tbody>
+
+            @for (
+              staff of staffList;
+              track staff._id
+            ) {
+
+              <tr>
+
+                <td>
+                  {{ staff.name }}
+                </td>
+
+                <td>
+                  {{ staff.email }}
+                </td>
+
+                <td>
+
+                  <span class="role-badge">
+                    {{ staff.role }}
+                  </span>
+
+                </td>
+
+              </tr>
+
+            }
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    }
+    @else {
+
+      <div class="no-staff">
+
+        <p>
+          No staff accounts found.
+        </p>
+
+      </div>
+
+    }
+
+  </div>
+
+
+  <!-- =============================== -->
+  <!-- MENU MANAGEMENT -->
+  <!-- =============================== -->
+
+  <div class="menu-management-card">
+
+    <div class="menu-management-header">
+
+      <div>
+
+        <h2>🍽️ Menu Management</h2>
+
+        <p>
+          Add, edit, delete and manage menu items.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- MENU FORM -->
+
+    <div class="menu-form">
+
+      <h3>
+        @if (editingMenuId) {
+          ✏️ Edit Menu Item
+        }
+        @else {
+          ➕ Add Menu Item
+        }
+      </h3>
+
+
+      <form
+        (ngSubmit)="
+          editingMenuId
+          ? updateMenuItem()
+          : addMenuItem()
+        ">
+
+
+        <div class="form-row">
+
+          <div class="form-group">
+
+            <label>Item Name</label>
+
+            <input
+              type="text"
+              name="menuName"
+              [(ngModel)]="menuName"
+              placeholder="e.g. Veg Burger"
+              required
+            />
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>Category</label>
+
+            <input
+              type="text"
+              name="menuCategory"
+              [(ngModel)]="menuCategory"
+              placeholder="e.g. Fast Food"
+              required
+            />
+
+          </div>
+
+        </div>
+
+
+        <div class="form-row">
+
+          <div class="form-group">
+
+            <label>Price</label>
+
+            <input
+              type="number"
+              name="menuPrice"
+              [(ngModel)]="menuPrice"
+              placeholder="Enter price"
+              min="1"
+              required
+            />
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label>Image URL</label>
+
+            <input
+              type="text"
+              name="menuImage"
+              [(ngModel)]="menuImage"
+              placeholder="Optional image URL"
+            />
+
+          </div>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>Description</label>
+
+          <textarea
+            name="menuDescription"
+            [(ngModel)]="menuDescription"
+            placeholder="Enter item description">
+          </textarea>
+
+        </div>
+
+
+        <div class="availability-option">
+
+          <input
+            type="checkbox"
+            id="menuAvailable"
+            name="menuAvailable"
+            [(ngModel)]="menuAvailable"
+          />
+
+          <label for="menuAvailable">
+            Item is available
+          </label>
+
+        </div>
+
+
+        <div class="menu-form-buttons">
+
+          <button
+            type="submit"
+            class="create-button">
+
+            @if (editingMenuId) {
+              Update Menu Item
+            }
+            @else {
+              Add Menu Item
+            }
+
+          </button>
+
+
+          @if (editingMenuId) {
+
+            <button
+              type="button"
+              class="cancel-button"
+              (click)="clearMenuForm()">
+
+              Cancel Edit
+
+            </button>
+
+          }
+
+        </div>
+
+      </form>
+
+    </div>
+
+
+    <!-- MENU LIST -->
+
+    <div class="menu-list">
+
+      <h3>📋 Current Menu</h3>
+
+
+      @if (menuItems.length > 0) {
+
+        <div class="menu-table-container">
+
+          <table>
+
+            <thead>
+
+              <tr>
+
+                <th>Item</th>
+
+                <th>Category</th>
+
+                <th>Price</th>
+
+                <th>Availability</th>
+
+                <th>Actions</th>
+
+              </tr>
+
+            </thead>
+
+
+            <tbody>
+
+              @for (
+                item of menuItems;
+                track item._id
+              ) {
+
+                <tr>
+
+                  <td>
+
+                    <strong>
+                      {{ item.name }}
+                    </strong>
+
+                    @if (item.description) {
+
+                      <small>
+                        {{ item.description }}
+                      </small>
+
+                    }
+
+                  </td>
+
+
+                  <td>
+                    {{ item.category }}
+                  </td>
+
+
+                  <td>
+                    ₹{{ item.price }}
+                  </td>
+
+
+                  <td>
+
+                    <button
+                      type="button"
+                      class="availability-button"
+                      [class.available]="item.available"
+                      [class.unavailable]="!item.available"
+                      (click)="toggleAvailability(item)">
+
+                      @if (item.available) {
+                        🟢 Available
+                      }
+                      @else {
+                        🔴 Unavailable
+                      }
+
+                    </button>
+
+                  </td>
+
+
+                  <td>
+
+                    <div class="menu-actions">
+
+                      <button
+                        type="button"
+                        class="edit-button"
+                        (click)="editMenuItem(item)">
+
+                        ✏️ Edit
+
+                      </button>
+
+
+                      <button
+                        type="button"
+                        class="delete-button"
+                        (click)="deleteMenuItem(item._id)">
+
+                        🗑️ Delete
+
+                      </button>
+
+                    </div>
+
+                  </td>
+
+                </tr>
+
+              }
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      }
+      @else {
+
+        <div class="no-menu">
+
+          <p>
+            No menu items found.
+          </p>
+
+        </div>
+
+      }
+
+    </div>
 
   </div>
 

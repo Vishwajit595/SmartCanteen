@@ -1,0 +1,212 @@
+.admin-page {
+  min-height: calc(100vh - 70px);
+  padding: 40px 20px;
+  background: #f5f7fb;
+}
+
+
+/* =============================== */
+/* ADMIN CARD */
+/* =============================== */
+
+.admin-card {
+  max-width: 650px;
+  margin: 0 auto 35px auto;
+  padding: 30px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.admin-card h1 {
+  margin-bottom: 8px;
+  text-align: center;
+  font-size: 30px;
+}
+
+.subtitle {
+  text-align: center;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+
+/* =============================== */
+/* FORM */
+/* =============================== */
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #ff6b35;
+}
+
+
+/* =============================== */
+/* CREATE BUTTON */
+/* =============================== */
+
+.create-button {
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: 8px;
+  background: #ff6b35;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.create-button:hover {
+  background: #e85a28;
+}
+
+
+/* =============================== */
+/* STAFF LIST */
+/* =============================== */
+
+.staff-list-card {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.staff-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.staff-header h2 {
+  margin: 0;
+}
+
+
+/* =============================== */
+/* REFRESH BUTTON */
+/* =============================== */
+
+.refresh-button {
+  padding: 9px 15px;
+  border: none;
+  border-radius: 7px;
+  background: #333;
+  color: white;
+  cursor: pointer;
+}
+
+.refresh-button:hover {
+  background: #555;
+}
+
+
+/* =============================== */
+/* TABLE */
+/* =============================== */
+
+.staff-table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 14px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+th {
+  background: #f8f8f8;
+  font-weight: 600;
+}
+
+tr:hover {
+  background: #fafafa;
+}
+
+
+/* =============================== */
+/* ROLE BADGE */
+/* =============================== */
+
+.role-badge {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 20px;
+  background: #e8f5e9;
+  color: #2e7d32;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+
+/* =============================== */
+/* NO STAFF */
+/* =============================== */
+
+.no-staff {
+  text-align: center;
+  padding: 30px;
+  color: #777;
+}
+
+
+/* =============================== */
+/* MOBILE */
+/* =============================== */
+
+@media (max-width: 600px) {
+
+  .admin-page {
+    padding: 20px 12px;
+  }
+
+  .admin-card,
+  .staff-list-card {
+    padding: 20px;
+  }
+
+  .admin-card h1 {
+    font-size: 24px;
+  }
+
+  .staff-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .refresh-button {
+    width: 100%;
+  }
+
+}

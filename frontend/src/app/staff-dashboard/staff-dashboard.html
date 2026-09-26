@@ -1,12 +1,17 @@
-<app-navbar></app-navbar>
-
 <div class="dashboard-page">
 
   <div class="dashboard-header">
+
     <p>SMARTCANTEEN STAFF</p>
+
     <h1>Order Dashboard</h1>
-    <span>Manage student orders and update their status.</span>
+
+    <span>
+      Manage student orders and update their status.
+    </span>
+
   </div>
+
 
   <div class="orders-container">
 
@@ -19,12 +24,16 @@
           <div class="order-top">
 
             <div>
-              <h2>Order #{{ order._id.slice(-6) }}</h2>
+
+              <h2>
+                Order #{{ order._id.slice(-6) }}
+              </h2>
 
               <p>
                 Student:
                 {{ order.user?.name || 'Student' }}
               </p>
+
             </div>
 
             <span class="status">
@@ -33,7 +42,9 @@
 
           </div>
 
+
           <hr>
+
 
           <div class="order-items">
 
@@ -56,19 +67,36 @@
 
           </div>
 
+
           <div class="order-info">
 
             <div>
-              <span>Pickup Time</span>
-              <strong>{{ order.pickupTime }}</strong>
+
+              <span>
+                Pickup Time
+              </span>
+
+              <strong>
+                {{ order.pickupTime }}
+              </strong>
+
             </div>
 
+
             <div>
-              <span>Total</span>
-              <strong>₹{{ order.totalAmount }}</strong>
+
+              <span>
+                Total
+              </span>
+
+              <strong>
+                ₹{{ order.totalAmount }}
+              </strong>
+
             </div>
 
           </div>
+
 
           <div class="order-actions">
 
@@ -76,44 +104,73 @@
 
               <button
                 class="accept"
-                (click)="updateStatus(order._id, 'Accepted')">
+                (click)="updateStatus(
+                  order._id,
+                  'Accepted'
+                )">
+
                 Accept
+
               </button>
+
 
               <button
                 class="reject"
-                (click)="updateStatus(order._id, 'Cancelled')">
+                (click)="updateStatus(
+                  order._id,
+                  'Cancelled'
+                )">
+
                 Reject
+
               </button>
 
             }
+
 
             @if (order.status === 'Accepted') {
 
               <button
                 class="prepare"
-                (click)="updateStatus(order._id, 'Preparing')">
+                (click)="updateStatus(
+                  order._id,
+                  'Preparing'
+                )">
+
                 Start Preparing
+
               </button>
 
             }
+
 
             @if (order.status === 'Preparing') {
 
               <button
                 class="ready"
-                (click)="updateStatus(order._id, 'Ready')">
+                (click)="updateStatus(
+                  order._id,
+                  'Ready'
+                )">
+
                 Mark Ready
+
               </button>
 
             }
+
 
             @if (order.status === 'Ready') {
 
               <button
                 class="collected"
-                (click)="updateStatus(order._id, 'Collected')">
+                (click)="updateStatus(
+                  order._id,
+                  'Collected'
+                )">
+
                 Mark Collected
+
               </button>
 
             }
@@ -124,11 +181,19 @@
 
       }
 
-    } @else {
+    }
+    @else {
 
       <div class="empty-orders">
-        <h2>No Orders Yet 🍽️</h2>
-        <p>New student orders will appear here.</p>
+
+        <h2>
+          No Orders Yet 🍽️
+        </h2>
+
+        <p>
+          New student orders will appear here.
+        </p>
+
       </div>
 
     }

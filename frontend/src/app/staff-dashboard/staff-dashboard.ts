@@ -1,10 +1,9 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Navbar } from '../navbar/navbar';
 
 @Component({
   selector: 'app-staff-dashboard',
-  imports: [Navbar],
+  imports: [],
   templateUrl: './staff-dashboard.html',
   styleUrl: './staff-dashboard.css'
 })
@@ -24,7 +23,7 @@ export class StaffDashboard implements OnInit {
   loadOrders() {
 
     this.http.get<any[]>(
-      'https://smartcanteen-c012.onrender.com/api/orders'
+      'http://localhost:5000/api/orders'
     ).subscribe({
 
       next: (data) => {
@@ -34,36 +33,55 @@ export class StaffDashboard implements OnInit {
         this.orders = data;
 
         this.cdr.detectChanges();
+
       },
 
       error: (error) => {
-        console.error('ORDER ERROR:', error);
+
+        console.error(
+          'ORDER ERROR:',
+          error
+        );
+
       }
 
     });
   }
 
-  updateStatus(id: string, status: string) {
+  updateStatus(
+    id: string,
+    status: string
+  ) {
 
     this.http.put(
-      `https://smartcanteen-c012.onrender.com/api/orders/${id}/status`,
+      `http://localhost:5000/api/orders/${id}/status`,
       { status }
     ).subscribe({
 
       next: () => {
 
-        alert(`Order ${status}`);
+        alert(
+          `Order ${status}`
+        );
 
         this.loadOrders();
+
       },
 
       error: (error) => {
 
-        console.error('STATUS ERROR:', error);
+        console.error(
+          'STATUS ERROR:',
+          error
+        );
 
-        alert('Failed to update order status');
+        alert(
+          'Failed to update order status'
+        );
+
       }
 
     });
   }
+
 }

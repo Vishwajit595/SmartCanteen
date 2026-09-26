@@ -8,6 +8,7 @@ import { Cart } from './cart/cart';
 import { StaffDashboard } from './staff-dashboard/staff-dashboard';
 import { MyOrders } from './my-orders/my-orders';
 import { AdminDashboard } from './admin-dashboard/admin-dashboard';
+import { VerifyEmail } from './verify-email/verify-email';
 
 import {
   authGuard,
@@ -18,19 +19,10 @@ import {
 
 export const routes: Routes = [
 
-  // ===============================
-  // HOME
-  // ===============================
-
   {
     path: '',
     component: Home
   },
-
-
-  // ===============================
-  // AUTHENTICATION
-  // ===============================
 
   {
     path: 'login',
@@ -42,10 +34,10 @@ export const routes: Routes = [
     component: Register
   },
 
-
-  // ===============================
-  // STUDENT
-  // ===============================
+  {
+    path: 'verify-email',
+    component: VerifyEmail
+  },
 
   {
     path: 'menu',
@@ -65,21 +57,11 @@ export const routes: Routes = [
     canActivate: [authGuard]
   },
 
-
-  // ===============================
-  // STAFF
-  // ===============================
-
   {
     path: 'staff-dashboard',
     component: StaffDashboard,
     canActivate: [staffGuard]
   },
-
-
-  // ===============================
-  // ADMIN
-  // ===============================
 
   {
     path: 'admin-dashboard',

@@ -28,26 +28,41 @@ export class Register {
       password: this.password
     };
 
+
     this.auth.register(userData).subscribe({
 
       next: (response) => {
 
-        console.log('Registration successful:', response);
+        console.log(
+          'Registration successful:',
+          response
+        );
 
-        alert('Registration successful! You can now login.');
+        alert(
+          'Registration successful! Please check your email and click the verification link before logging in.'
+        );
 
         this.router.navigate(['/login']);
+
       },
+
 
       error: (error) => {
 
-        console.error('Registration failed:', error);
+        console.error(
+          'Registration failed:',
+          error
+        );
 
         alert(
-          error.error?.message || 'Registration failed'
+          error.error?.message ||
+          'Registration failed'
         );
+
       }
 
     });
+
   }
+
 }
