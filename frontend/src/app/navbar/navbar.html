@@ -8,13 +8,12 @@
 
     <div class="nav-links">
 
-      <!-- Always visible -->
-      <a routerLink="/menu">
-        Menu
-      </a>
+      <!-- Student -->
+      @if (isLoggedIn && isStudent) {
 
-      <!-- Logged-in user -->
-      @if (isLoggedIn) {
+        <a routerLink="/menu">
+          Menu
+        </a>
 
         <a routerLink="/cart">
           🛒 Cart
@@ -24,15 +23,23 @@
           📦 My Orders
         </a>
 
+      }
+
+      <!-- Staff -->
+      @if (isLoggedIn && isStaff) {
+
         <a routerLink="/staff-dashboard">
-          👨‍🍳 Staff
+          👨‍🍳 Staff Dashboard
         </a>
 
-        <button
-          class="logout-button"
-          (click)="logout()">
-          Logout
-        </button>
+      }
+
+      <!-- Admin -->
+      @if (isLoggedIn && isAdmin) {
+
+        <a routerLink="/admin-dashboard">
+          👨‍💼 Admin Dashboard
+        </a>
 
       }
 
@@ -46,6 +53,17 @@
         <a routerLink="/register">
           Register
         </a>
+
+      }
+
+      <!-- Logout -->
+      @if (isLoggedIn) {
+
+        <button
+          class="logout-button"
+          (click)="logout()">
+          Logout
+        </button>
 
       }
 

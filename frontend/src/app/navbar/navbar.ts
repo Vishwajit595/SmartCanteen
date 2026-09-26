@@ -15,7 +15,34 @@ export class Navbar {
     return !!localStorage.getItem('token');
   }
 
+  get userRole(): string {
+    const user = localStorage.getItem('user');
+
+    if (!user) {
+      return '';
+    }
+
+    try {
+      return JSON.parse(user).role || '';
+    } catch {
+      return '';
+    }
+  }
+
+  get isStudent(): boolean {
+    return this.userRole === 'student';
+  }
+
+  get isStaff(): boolean {
+    return this.userRole === 'staff';
+  }
+
+  get isAdmin(): boolean {
+    return this.userRole === 'admin';
+  }
+
   logout() {
+
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     localStorage.removeItem('cart');

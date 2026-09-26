@@ -1,33 +1,92 @@
-import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
+import { CanActivateFn, Router } from '@angular/router';
 
-export const authGuard: CanActivateFn = (route) => {
+
+// ===============================
+// LOGIN CHECK
+// ===============================
+
+export const authGuard: CanActivateFn = () => {
 
   const router = inject(Router);
 
   const token = localStorage.getItem('token');
-  const userData = localStorage.getItem('user');
 
-  if (!token || !userData) {
-    alert('Please login first.');
-    router.navigate(['/login']);
-    return false;
+  if (token) {
+    return true;
   }
 
-  const user = JSON.parse(userData);
+  return router.createUrlTree(['/login']);
+};
 
-  const isStaffRoute =
-    route.routeConfig?.path === 'staff-dashboard';
 
-  if (isStaffRoute) {
+// ===============================
+// ADMIN CHECK
+// ===============================
 
-    if (user.role !== 'staff' && user.role !== 'admin') {
-      alert('Access denied. Staff only.');
-      router.navigate(['/menu']);
-      return false;
+export const adminGuard: CanActivateFn = () => {
+
+  const router = inject(Router);
+
+  const token = localStorage.getItem('token');
+
+  if (!token) {
+    return router.createUrlTree(['/login']);
+  }
+
+  const user = localStorage.getItem('user');
+
+  if (!user) {
+    return router.createUrlTree(['/login']);
+  }
+
+  try {
+
+    const userData = JSON.parse(user);
+
+    if (userData.role === 'admin') {
+      return true;
     }
 
+  } catch (error) {
+    console.error('Invalid user data');
   }
 
-  return true;
+  return router.createUrlTree(['/menu']);
+};
+
+
+// ===============================
+// STAFF CHECK
+// ===============================
+
+export const staffGuard: CanActivateFn = () => {
+
+  const router = inject(Router);
+
+  const token = localStorage.getItem('token');
+
+  if (!token) {
+    return router.createUrlTree(['/login']);
+  }
+
+  const user = localStorage.getItem('user');
+
+  if (!user) {
+    return router.createUrlTree(['/login']);
+  }
+
+  try {
+
+    const userData = JSON.parse(user);
+
+    if (userData.role === 'staff') {
+      return true;
+    }
+
+  } catch (error) {
+    console.error('Invalid user data');
+  }
+
+  return router.createUrlTree(['/menu']);
 };

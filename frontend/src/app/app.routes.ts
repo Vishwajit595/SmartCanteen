@@ -7,26 +7,84 @@ import { Menu } from './menu/menu';
 import { Cart } from './cart/cart';
 import { StaffDashboard } from './staff-dashboard/staff-dashboard';
 import { MyOrders } from './my-orders/my-orders';
-import { authGuard } from './auth/auth-guard';
+import { AdminDashboard } from './admin-dashboard/admin-dashboard';
+
+import {
+  authGuard,
+  adminGuard,
+  staffGuard
+} from './auth/auth-guard';
+
 
 export const routes: Routes = [
 
-  { path: '', component: Home },
+  // ===============================
+  // HOME
+  // ===============================
 
-  { path: 'login', component: Login },
+  {
+    path: '',
+    component: Home
+  },
 
-  { path: 'register', component: Register },
 
-  { path: 'menu', component: Menu, canActivate: [authGuard] },
+  // ===============================
+  // AUTHENTICATION
+  // ===============================
 
-  { path: 'cart', component: Cart, canActivate: [authGuard] },
+  {
+    path: 'login',
+    component: Login
+  },
 
-  { path: 'my-orders', component: MyOrders, canActivate: [authGuard] },
+  {
+    path: 'register',
+    component: Register
+  },
+
+
+  // ===============================
+  // STUDENT
+  // ===============================
+
+  {
+    path: 'menu',
+    component: Menu,
+    canActivate: [authGuard]
+  },
+
+  {
+    path: 'cart',
+    component: Cart,
+    canActivate: [authGuard]
+  },
+
+  {
+    path: 'my-orders',
+    component: MyOrders,
+    canActivate: [authGuard]
+  },
+
+
+  // ===============================
+  // STAFF
+  // ===============================
 
   {
     path: 'staff-dashboard',
     component: StaffDashboard,
-    canActivate: [authGuard]
+    canActivate: [staffGuard]
+  },
+
+
+  // ===============================
+  // ADMIN
+  // ===============================
+
+  {
+    path: 'admin-dashboard',
+    component: AdminDashboard,
+    canActivate: [adminGuard]
   }
 
 ];
