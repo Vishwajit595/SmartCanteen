@@ -2,6 +2,11 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+
+// ===============================
+// STUDENT REGISTRATION
+// ===============================
+
 const registerUser = async (req, res) => {
     try {
         const { name, email, password } = req.body;
@@ -32,16 +37,25 @@ const registerUser = async (req, res) => {
                 role: user.role
             }
         });
+
     } catch (error) {
+
         res.status(500).json({
             message: "Registration failed",
             error: error.message
         });
+
     }
 };
 
+
+// ===============================
+// LOGIN
+// ===============================
+
 const loginUser = async (req, res) => {
     try {
+
         const { email, password } = req.body;
 
         const user = await User.findOne({ email });
@@ -52,7 +66,10 @@ const loginUser = async (req, res) => {
             });
         }
 
-        const isMatch = await bcrypt.compare(password, user.password);
+        const isMatch = await bcrypt.compare(
+            password,
+            user.password
+        );
 
         if (!isMatch) {
             return res.status(400).json({
@@ -81,15 +98,71 @@ const loginUser = async (req, res) => {
                 role: user.role
             }
         });
+
     } catch (error) {
+
         res.status(500).json({
             message: "Login failed",
             error: error.message
         });
+
     }
 };
 
+
+// ===============================
+// CREATE STAFF ACCOUNT
+// ===============================
+
+const createStaffUser = async (req, res) => {
+    try {
+
+        const { name, email, password } = req.body;
+
+        const existingUser = await User.findOne({ email });
+
+        if (existingUser) {
+            return res.status(400).json({
+                message: "User already exists"
+            });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const user = await User.create({
+            name,
+            email,
+            password: hashedPassword,
+            role: "staff"
+        });
+
+        res.status(201).json({
+            message: "Staff account created successfully",
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                role: user.role
+            }
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+            message: "Staff creation failed",
+            error: error.message
+        });
+
+    }
+};
+
+
+// ===============================
+// EXPORT FUNCTIONS
+// ===============================
+
 module.exports = {
     registerUser,
-    loginUser
+    loginUser,
+    createStaffUser
 };
