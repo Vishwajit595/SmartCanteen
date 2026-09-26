@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 export class Auth {
 
   private apiUrl =
-    'http://localhost:5000/api/auth';
+    'https://smartcanteen-c012.onrender.com/api/auth';
 
   constructor(
     private http: HttpClient
@@ -19,7 +19,6 @@ export class Auth {
       `${this.apiUrl}/register`,
       userData
     );
-
   }
 
   login(userData: any) {
@@ -28,7 +27,5 @@ export class Auth {
       `${this.apiUrl}/login`,
       userData
     );
-
   }
-
 }

@@ -11,6 +11,9 @@ export class StaffDashboard implements OnInit {
 
   orders: any[] = [];
 
+  private apiUrl =
+    'https://smartcanteen-c012.onrender.com/api/orders';
+
   constructor(
     private http: HttpClient,
     private cdr: ChangeDetectorRef
@@ -23,17 +26,19 @@ export class StaffDashboard implements OnInit {
   loadOrders() {
 
     this.http.get<any[]>(
-      'http://localhost:5000/api/orders'
+      this.apiUrl
     ).subscribe({
 
       next: (data) => {
 
-        console.log('ORDERS:', data);
+        console.log(
+          'ORDERS:',
+          data
+        );
 
         this.orders = data;
 
         this.cdr.detectChanges();
-
       },
 
       error: (error) => {
@@ -54,7 +59,7 @@ export class StaffDashboard implements OnInit {
   ) {
 
     this.http.put(
-      `http://localhost:5000/api/orders/${id}/status`,
+      `${this.apiUrl}/${id}/status`,
       { status }
     ).subscribe({
 
@@ -65,7 +70,6 @@ export class StaffDashboard implements OnInit {
         );
 
         this.loadOrders();
-
       },
 
       error: (error) => {
@@ -78,7 +82,6 @@ export class StaffDashboard implements OnInit {
         alert(
           'Failed to update order status'
         );
-
       }
 
     });

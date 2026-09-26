@@ -21,7 +21,7 @@ export class AdminDashboard implements OnInit {
   staffList: any[] = [];
 
   private authApiUrl =
-    'http://localhost:5000/api/auth';
+    'https://smartcanteen-c012.onrender.com/api/auth';
 
   // ===============================
   // MENU DATA
@@ -39,17 +39,15 @@ export class AdminDashboard implements OnInit {
   editingMenuId: string | null = null;
 
   private menuApiUrl =
-    'http://localhost:5000/api/menu';
+    'https://smartcanteen-c012.onrender.com/api/menu';
 
   constructor(
     private http: HttpClient
   ) {}
 
   ngOnInit() {
-
     this.loadStaff();
     this.loadMenuItems();
-
   }
 
   // ===============================
@@ -88,7 +86,6 @@ export class AdminDashboard implements OnInit {
         this.password = '';
 
         this.loadStaff();
-
       },
 
       error: (error) => {
@@ -102,7 +99,6 @@ export class AdminDashboard implements OnInit {
           error.error?.message ||
           'Staff creation failed'
         );
-
       }
 
     });
@@ -130,7 +126,6 @@ export class AdminDashboard implements OnInit {
 
         this.staffList =
           response.staff;
-
       },
 
       error: (error) => {
@@ -139,7 +134,6 @@ export class AdminDashboard implements OnInit {
           'Failed to load staff:',
           error
         );
-
       }
 
     });
@@ -158,7 +152,6 @@ export class AdminDashboard implements OnInit {
       next: (data) => {
 
         this.menuItems = data;
-
       },
 
       error: (error) => {
@@ -167,7 +160,6 @@ export class AdminDashboard implements OnInit {
           'Failed to load menu:',
           error
         );
-
       }
 
     });
@@ -200,7 +192,6 @@ export class AdminDashboard implements OnInit {
 
       available:
         this.menuAvailable
-
     };
 
     this.http.post(
@@ -221,9 +212,7 @@ export class AdminDashboard implements OnInit {
         );
 
         this.clearMenuForm();
-
         this.loadMenuItems();
-
       },
 
       error: (error) => {
@@ -237,7 +226,6 @@ export class AdminDashboard implements OnInit {
           error.error?.message ||
           'Failed to add menu item'
         );
-
       }
 
     });
@@ -269,7 +257,6 @@ export class AdminDashboard implements OnInit {
 
     this.menuAvailable =
       item.available;
-
   }
 
   // ===============================
@@ -303,7 +290,6 @@ export class AdminDashboard implements OnInit {
 
       available:
         this.menuAvailable
-
     };
 
     this.http.put(
@@ -324,9 +310,7 @@ export class AdminDashboard implements OnInit {
         );
 
         this.clearMenuForm();
-
         this.loadMenuItems();
-
       },
 
       error: (error) => {
@@ -340,7 +324,6 @@ export class AdminDashboard implements OnInit {
           error.error?.message ||
           'Failed to update menu item'
         );
-
       }
 
     });
@@ -381,7 +364,6 @@ export class AdminDashboard implements OnInit {
         );
 
         this.loadMenuItems();
-
       },
 
       error: (error) => {
@@ -395,7 +377,6 @@ export class AdminDashboard implements OnInit {
           error.error?.message ||
           'Failed to delete menu item'
         );
-
       }
 
     });
@@ -428,7 +409,6 @@ export class AdminDashboard implements OnInit {
 
       available:
         !item.available
-
     };
 
     this.http.put(
@@ -445,7 +425,6 @@ export class AdminDashboard implements OnInit {
       next: () => {
 
         this.loadMenuItems();
-
       },
 
       error: (error) => {
@@ -454,7 +433,6 @@ export class AdminDashboard implements OnInit {
           'Failed to update availability:',
           error
         );
-
       }
 
     });
@@ -479,7 +457,6 @@ export class AdminDashboard implements OnInit {
     this.menuImage = '';
 
     this.menuAvailable = true;
-
   }
 
 }

@@ -48,7 +48,7 @@ const sendVerificationEmail = async (
 ) => {
 
     const verificationLink =
-        `http://localhost:4200/verify-email?token=${verificationToken}`;
+        `https://smartcanteen-frontend-7vie.onrender.com/verify-email?token=${verificationToken}`;
 
 
     const mailOptions = {

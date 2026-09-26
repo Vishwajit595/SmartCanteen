@@ -13,6 +13,9 @@ export class VerifyEmail implements OnInit {
   message = 'Verifying your email...';
   success = false;
 
+  private apiUrl =
+    'https://smartcanteen-c012.onrender.com/api/auth';
+
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
@@ -25,15 +28,13 @@ export class VerifyEmail implements OnInit {
       this.route.snapshot.queryParamMap.get('token');
 
     if (!token) {
-
       this.message =
         'Invalid verification link.';
-
       return;
     }
 
     this.http.get(
-      `http://localhost:5000/api/auth/verify-email?token=${token}`
+      `${this.apiUrl}/verify-email?token=${token}`
     )
     .subscribe({
 
@@ -45,9 +46,7 @@ export class VerifyEmail implements OnInit {
           'Email verified successfully! Redirecting to login...';
 
         setTimeout(() => {
-
           this.router.navigate(['/login']);
-
         }, 3000);
       },
 
@@ -59,10 +58,12 @@ export class VerifyEmail implements OnInit {
           error.error?.message ||
           'Email verification failed.';
       }
+
     });
   }
 
   goToLogin() {
     this.router.navigate(['/login']);
   }
+
 }

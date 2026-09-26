@@ -6,11 +6,16 @@ import { HttpClient } from '@angular/common/http';
 })
 export class MenuService {
 
-  private apiUrl = 'https://smartcanteen-c012.onrender.com/api/menu';
+  private apiUrl =
+    'https://smartcanteen-c012.onrender.com/api/menu';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient
+  ) {}
 
   getMenuItems() {
-    return this.http.get<any[]>(this.apiUrl);
+    return this.http.get<any[]>(
+      this.apiUrl
+    );
   }
 }

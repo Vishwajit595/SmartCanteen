@@ -38,13 +38,22 @@ export class MyOrders implements OnInit {
           order => order.user?._id === user.id
         );
 
-        console.log('MY ORDERS:', this.orders);
+        console.log(
+          'MY ORDERS:',
+          this.orders
+        );
 
         this.cdr.detectChanges();
+
       },
 
       error: (error) => {
-        console.error('MY ORDERS ERROR:', error);
+
+        console.error(
+          'MY ORDERS ERROR:',
+          error
+        );
+
       }
 
     });
