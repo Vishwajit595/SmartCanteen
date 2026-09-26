@@ -2,27 +2,52 @@
 
   <div class="navbar-container">
 
-    <a routerLink="/menu" class="logo">
+    <a routerLink="/" class="logo">
       🍴 SmartCanteen
     </a>
 
     <div class="nav-links">
 
+      <!-- Always visible -->
       <a routerLink="/menu">
         Menu
       </a>
 
-      <a routerLink="/cart">
-        🛒 Cart
-      </a>
+      <!-- Logged-in user -->
+      @if (isLoggedIn) {
 
-      <a routerLink="/my-orders">
-        📦 My Orders
-      </a>
+        <a routerLink="/cart">
+          🛒 Cart
+        </a>
 
-      <a routerLink="/staff-dashboard">
-        👨‍🍳 Staff
-      </a>
+        <a routerLink="/my-orders">
+          📦 My Orders
+        </a>
+
+        <a routerLink="/staff-dashboard">
+          👨‍🍳 Staff
+        </a>
+
+        <button
+          class="logout-button"
+          (click)="logout()">
+          Logout
+        </button>
+
+      }
+
+      <!-- Logged-out user -->
+      @if (!isLoggedIn) {
+
+        <a routerLink="/login">
+          Login
+        </a>
+
+        <a routerLink="/register">
+          Register
+        </a>
+
+      }
 
     </div>
 

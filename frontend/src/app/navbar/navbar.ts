@@ -11,6 +11,10 @@ export class Navbar {
 
   constructor(private router: Router) {}
 
+  get isLoggedIn(): boolean {
+    return !!localStorage.getItem('token');
+  }
+
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
