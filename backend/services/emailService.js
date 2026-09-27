@@ -1,42 +1,3 @@
-const nodemailer = require("nodemailer");
-
-const transporter = nodemailer.createTransport({
-    service: "gmail",
-
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASSWORD
-    }
-});
-
-// ===============================
-// TEST GMAIL CONNECTION
-// ===============================
-
-transporter.verify((error, success) => {
-
-    if (error) {
-
-        console.error(
-            "GMAIL CONNECTION FAILED:"
-        );
-
-        console.error(
-            error.message
-        );
-
-    } else {
-
-        console.log(
-            "GMAIL CONNECTION SUCCESSFUL!"
-        );
-    }
-});
-
-// ===============================
-// SEND VERIFICATION EMAIL
-// ===============================
-
 const sendVerificationEmail = async (
     email,
     name,
@@ -46,76 +7,99 @@ const sendVerificationEmail = async (
     const verificationLink =
         `https://smartcanteen-frontend-7vie.onrender.com/verify-email?token=${verificationToken}`;
 
-    const mailOptions = {
+    const response = await fetch(
+        "https://api.brevo.com/v3/smtp/email",
+        {
+            method: "POST",
 
-        from:
-            `"SmartCanteen" <${process.env.EMAIL_USER}>`,
+            headers: {
+                "accept": "application/json",
+                "api-key": process.env.BREVO_API_KEY,
+                "content-type": "application/json"
+            },
 
-        to: email,
+            body: JSON.stringify({
+                sender: {
+                    name: "SmartCanteen",
+                    email: process.env.EMAIL_USER
+                },
 
-        subject:
-            "Verify your SmartCanteen Email",
+                to: [
+                    {
+                        email: email,
+                        name: name
+                    }
+                ],
 
-        html: `
-            <div style="
-                font-family: Arial, sans-serif;
-                max-width: 600px;
-                margin: auto;
-                padding: 30px;
-                border: 1px solid #ddd;
-                border-radius: 10px;
-            ">
+                subject: "Verify your SmartCanteen account",
 
-                <h1 style="color: #ff6b35;">
-                    🍴 SmartCanteen
-                </h1>
+                htmlContent: `
+                    <div style="font-family: Arial, sans-serif; padding: 20px;">
+                        
+                        <h2>Welcome to SmartCanteen, ${name}!</h2>
 
-                <h2>
-                    Welcome ${name}!
-                </h2>
+                        <p>
+                            Thank you for registering with SmartCanteen.
+                        </p>
 
-                <p>
-                    Thank you for registering with SmartCanteen.
-                </p>
+                        <p>
+                            Please click the button below to verify your email address:
+                        </p>
 
-                <p>
-                    Please verify your email address
-                    before logging in.
-                </p>
+                        <a href="${verificationLink}"
+                           style="
+                               display: inline-block;
+                               padding: 12px 20px;
+                               background-color: #28a745;
+                               color: white;
+                               text-decoration: none;
+                               border-radius: 6px;
+                               font-weight: bold;
+                           ">
+                            Verify Email
+                        </a>
 
-                <a
-                    href="${verificationLink}"
-                    style="
-                        display: inline-block;
-                        padding: 12px 20px;
-                        background: #ff6b35;
-                        color: white;
-                        text-decoration: none;
-                        border-radius: 6px;
-                        font-weight: bold;
-                    "
-                >
-                    Verify Email
-                </a>
+                        <p style="margin-top: 20px;">
+                            This verification link will expire after 30 minutes.
+                        </p>
 
-                <p style="
-                    margin-top: 25px;
-                    color: #666;
-                ">
-                    This verification link will expire
-                    in 30 minutes.
-                </p>
+                        <p>
+                            If you did not create this account, you can ignore this email.
+                        </p>
 
-            </div>
-        `
-    };
+                        <p>
+                            Regards,<br>
+                            <strong>SmartCanteen Team</strong>
+                        </p>
 
-    await transporter.sendMail(mailOptions);
+                    </div>
+                `
+            })
+        }
+    );
+
+    if (!response.ok) {
+
+        const errorData = await response.text();
+
+        console.error(
+            "Brevo Email Error:",
+            errorData
+        );
+
+        throw new Error(
+            "Verification email could not be sent"
+        );
+    }
+
+    const result = await response.json();
 
     console.log(
-        "Verification email sent successfully to:",
-        email
+        "Verification email sent successfully:",
+        result.messageId
     );
+
+    return result;
 };
 
 module.exports = {
