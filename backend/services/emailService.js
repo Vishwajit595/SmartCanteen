@@ -9,7 +9,6 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-
 // ===============================
 // TEST GMAIL CONNECTION
 // ===============================
@@ -31,11 +30,8 @@ transporter.verify((error, success) => {
         console.log(
             "GMAIL CONNECTION SUCCESSFUL!"
         );
-
     }
-
 });
-
 
 // ===============================
 // SEND VERIFICATION EMAIL
@@ -49,7 +45,6 @@ const sendVerificationEmail = async (
 
     const verificationLink =
         `https://smartcanteen-frontend-7vie.onrender.com/verify-email?token=${verificationToken}`;
-
 
     const mailOptions = {
 
@@ -115,16 +110,13 @@ const sendVerificationEmail = async (
         `
     };
 
-
     await transporter.sendMail(mailOptions);
 
     console.log(
         "Verification email sent successfully to:",
         email
     );
-
 };
-
 
 module.exports = {
     sendVerificationEmail
