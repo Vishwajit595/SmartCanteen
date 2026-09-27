@@ -1,12 +1,17 @@
-<app-navbar></app-navbar>
-
 <div class="orders-page">
 
   <div class="orders-header">
+
     <p>SMARTCANTEEN</p>
+
     <h1>My Orders 📦</h1>
-    <span>Track your food orders and pickup status.</span>
+
+    <span>
+      Track your food orders and pickup status.
+    </span>
+
   </div>
+
 
   <div class="orders-container">
 
@@ -19,8 +24,15 @@
           <div class="order-top">
 
             <div>
-              <h2>Order #{{ order._id.slice(-6) }}</h2>
-              <p>{{ order.createdAt | date:'medium' }}</p>
+
+              <h2>
+                Order #{{ order._id.slice(-6) }}
+              </h2>
+
+              <p>
+                {{ order.createdAt | date:'medium' }}
+              </p>
+
             </div>
 
             <span class="status">
@@ -29,7 +41,9 @@
 
           </div>
 
+
           <hr>
+
 
           <div class="order-items">
 
@@ -52,16 +66,28 @@
 
           </div>
 
+
           <div class="order-bottom">
 
             <div>
+
               <span>Pickup Time</span>
-              <strong>{{ order.pickupTime }}</strong>
+
+              <strong>
+                {{ order.pickupTime }}
+              </strong>
+
             </div>
 
+
             <div>
+
               <span>Total Amount</span>
-              <strong>₹{{ order.totalAmount }}</strong>
+
+              <strong>
+                ₹{{ order.totalAmount }}
+              </strong>
+
             </div>
 
           </div>
