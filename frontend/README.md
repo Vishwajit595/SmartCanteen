@@ -1,59 +1,103 @@
-# Frontend
+# SmartCanteen 🍽️
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.2.0.
+SmartCanteen is a web-based college canteen management and food ordering system developed using the MEAN Stack.
 
-## Development server
+It allows students to browse the canteen menu, add food items to their cart, place orders, select pickup times, and track order status. Staff members can manage student orders, while administrators can manage staff accounts and menu items.
 
-To start a local development server, run:
+## 🚀 Live Demo
 
-```bash
-ng serve
-```
+Frontend:
+https://smartcanteen-frontend-7vie.onrender.com
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Backend:
+https://smartcanteen-c012.onrender.com
 
-## Code scaffolding
+## 🛠️ Technologies Used
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Frontend
+- Angular
+- HTML
+- CSS
+- TypeScript
 
-```bash
-ng generate component component-name
-```
+### Backend
+- Node.js
+- Express.js
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### Database
+- MongoDB Atlas
 
-```bash
-ng generate --help
-```
+### Authentication & Security
+- JWT Authentication
+- bcrypt Password Hashing
+- Role-Based Access Control
+- Email Verification
 
-## Building
+### Email Service
+- Brevo API
 
-To build the project run:
+### Deployment
+- Render
+- GitHub
 
-```bash
-ng build
-```
+## 👥 User Roles
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+### Student
+- Register account
+- Verify email
+- Login
+- View menu
+- Add items to cart
+- Place orders
+- Select pickup time
+- View order history
+- Track order status
 
-## Running unit tests
+### Staff
+- Login through staff account
+- View student orders
+- Accept orders
+- Start preparing orders
+- Mark orders as ready
+- Mark orders as collected
+- Reject pending orders
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+### Admin
+- Login through admin account
+- Create staff accounts
+- View staff list
+- Add menu items
+- Edit menu items
+- Delete menu items
+- Change item availability
 
-```bash
-ng test
-```
+## 🔄 Order Status Flow
 
-## Running end-to-end tests
+Pending → Accepted → Preparing → Ready → Collected
 
-For end-to-end (e2e) testing, run:
+If a pending order is rejected:
 
-```bash
-ng e2e
-```
+Pending → Cancelled
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## 📁 Project Structure
 
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```text
+SmartCanteen/
+│
+├── backend/
+│   ├── config/
+│   ├── controllers/
+│   ├── models/
+│   ├── routes/
+│   ├── server.js
+│   ├── package.json
+│   └── .env
+│
+├── frontend/
+│   ├── src/
+│   │   └── app/
+│   ├── angular.json
+│   ├── package.json
+│   └── tsconfig.json
+│
+└── README.md
